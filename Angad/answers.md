@@ -16,7 +16,7 @@ c) Resource not found
 
 
 **1.4** Which HTTP method is conventionally used to **create** a new resource in a REST API?
-Not sure, assumption: b) POST
+b) POST
 
 
 **1.5** Which SQL statement removes **specific rows** matching a condition, while keeping the table?
@@ -24,7 +24,7 @@ b) `DELETE FROM ... WHERE ...`
 
 
 **1.6** Which Git command **creates a new branch and switches to it**?
-Not sure, assumption: a) `git branch -d feature`
+c) `git checkout -b feature`
 
 
 **1.7** Which of the following is **NOT** one of the core principles of Object-Oriented Programming?
@@ -36,40 +36,47 @@ b) To uniquely identify each row
 
 
 **1.9** What is the **average** time complexity of looking up a key in a hash map / dictionary?
-c) O(n)
+c) O(1)
 
 **1.10** Which of the following is **valid JSON**?
-Not sure, assumption: c) `{"name": "Budi", "age": 21}`
+c) `{"name": "Budi", "age": 21}`
 
 ---
 
 ## Part 2 — Short Answer Theory (21 pts)
 
 **2.1** What is the difference between a **process** and a **thread**?
+
 A process is a program that is loaded into the memory and is executed, while a thread is a small instruction or step 
 perfomed within the process to make it work. A key difference is that a process takes a much larger chunk of memory 
 than threads, and usually if one process fails, another can still run after it. On the other hand, if one thread fails, 
 the threads after that will also fail to do their task. For instance, a process may be opening a webpage on your browser, and the threads work to load the text with the right font and size, display the correct colours and etc..
 
 **2.2** Compare **SQL (relational)** and **NoSQL** databases. Give one situation where you would choose each.
+
 A SQL database is used when there is a fixed relationship between 2 or more entities/tables, such as many to one or one to one. While I am not very familiar with a NoSQL database, I do know that it is used when when there is a flexible storage or relationship of data between 2 or more entities/tables. For instance, when designing an online form for employees to fill in, if all 
 boxes are required to be filled in a certain way, a SQL database can be used, however if the form allows employees to fill in various data of their choosing in any possible format, a NoSQL database would be optimal and would be able to deliver these results to you fast. 
 
 **2.3** What is an **API**? What makes an API "RESTful"? Name at least two characteristics.
+
 An API is an a application programming interface, when one interface communicates and transfers data between another interface, it ensures that the connected interface is the intended one, authenticating it. REST API is code that allows those 2 interfaces to properly communicate with each other, following a set of rules. 2 characteristics of this is that 
 it is used in a client-server architecture, and the communication between these 2 endpoints is stateless.  
 
 **2.4** Describe, at a high level, what happens when you type `https://www.example.com` into a browser and press Enter.
+
 The browser first of all processes the URL and then tries to find out which server to use to be able to retrieve the information for the webpage. This is done using DNS as it converts the domain name into an IP address of the matching server. The browser will then establish a connection between the client and the server using TCP protocol and port address of the server. 
 The browser then sends a HTTP GET request for the webpage to the server, to which the server replies by sending a HTML file using HTTP back to the browser. If all information needed is already present in the HTML file, the browser will display it on your screen
 
 **2.5** Why do developers write **unit tests**? What makes a unit test "good"?
+
 Unit tests help test a specific part of a program, like a function. These are considered good practice as they help developers find out whether the functions work as intended, when given a fixed set of inputs that test normal and edge cases, along with a set of expected outputs. 
 
 **2.6** What is a **merge conflict** in Git, why does it happen, and how do you resolve one?
-Not sure. 
+
+A merge conflict primarily happens if you make another branch from the main branch of the same file, and start coding on that branch, while someone else codes over the same part of the file on the main branch. When it comes time to merge and combine the code in second branch with the main branch, a merge conflict will arise since Git will be confused which version/code to keep and which one to remove. In order to resolve this, the developer has to manually decide which changes to keep or combine. 
 
 **2.7** A user reports a bug that you **cannot reproduce** on your machine. Describe the steps you would take to investigate.
+
 If the issue cannot be reproduced on my machine, it would be advisable to find out which device, operating system or dated software the user was using, and then try recreating the user conditions used all these details when the bug had occured. Moreover, if this is also unsuccessful, it could be most likely be an issue related to a third-party software or entitiy that interferes with my software that the user is using. In this case, it would be better to investigate on the possible interfering softwares and try and fix any integration issues or unauthorized actions. 
 
 ---
@@ -123,8 +130,13 @@ for (var i = 0; i < 3; i++) {
 ```
 
 a) What is logged to the console?
+It logs: 
+3
+3
+3
 b) Change **one word** so that it logs `0 1 2`. Explain why it works. 
-I have not learnt Javascript so I am not able to answer these questions accurately, 
+We can change 'var' into 'let'. This is because 'let' creates a seperate block-scoped 'i' for each loop iteration, meaning every callback would remember it's own value. 
+
 
 
 ### 3.4 — Find the bug
@@ -174,146 +186,6 @@ ORDER BY average_salary DESC
 
 ---
 
-## Part 4 — Live Coding Exercises (39 pts)
 
-
-### 4.1 — Reverse the Words
-Write a function that reverses the **order of words** in a sentence. Extra spaces between words should be collapsed into one, and leading/trailing spaces removed.
-```
-Input:  "  the ship   sails at dawn "
-Output: "dawn at sails ship the"
-```
-#ANSWER: 
-
-def manipulate(word): 
-    word = word.split()         #converting word into element wherever seperated by any amount of spaces 
-    new_word = ""
-    for w in word: 
-        new_word += w + " "     #re-writing the word to ensure that there is only one space between words 
-    new_word = new_word.strip() #removing and trailing or leading spaces from final word 
-    return new_word
-
-"""
-2 test cases: 
-
-input: " hello all  this      is  my test  "
-expected output: "hello all this is my test"
-
-input = " char actor   sun      set       "
-expected output: "char actor sun set"
-
-"""
-
-### 4.2 — Balanced Brackets
-Write a function that returns `true` if a string's brackets `()`, `[]`, `{}` are **balanced and correctly nested**, otherwise `false`. Other characters are ignored.
-```
-"(a[b]{c})"  -> true
-"([)]"       -> false
-"(("         -> false
-""           -> true
-```
-#ANSWER:
-
-def check_brackets(string): 
-    brackets = []
-    open_brackets = ["[", "(", "{"]
-    closed_brackets = ["]", ")", "}"]
-    for char in string: 
-        if char in open_brackets: 
-            brackets.append(char)
-        elif char in closed_brackets: 
-            if len(brackets) > 0:                           #checks to see if there is atleast one opening bracket for a closed bracket encountered, else return False 
-                if char == ")" and brackets [-1] == "(":    #compares the earliest close bracket found with the latest open bracket found in order to be logically correct 
-                    brackets.remove(brackets[-1])
-                elif char == "]" and brackets [-1] == "[": 
-                    brackets.remove(brackets[-1])
-                elif char == "}" and brackets [-1] == "{": 
-                    brackets.remove(brackets[-1])
-                else: 
-                    return False                            #if a close bracket is found and the latest open bracket is not a matching pair, it is logically incorrect 
-            else: 
-                return False                                #if no open brackets are found and a close bracket is, it is logically incorrect 
-    if len(brackets) == 0:                                  #if all open brackets have been correctly accounted for by matching closed brackets, remaining open brackets in the list to check should be zero 
-        return True 
-    else: 
-        return False 
-    
-"""
-2 test cases: 
-
-input: "{[()]}"
-output: True
-
-input: "{[(])}"
-output: False
-
-"""
-
-*Question: what is the time and space complexity of your solution?*
-Since my program searches through every character in the string in a linear pattern, its time complexity is O(n), in terms of space complexity, since the 'brackets' list can hold 'n' number of opening brackets, I would also say that it's space complexity is O(n).    
-
-
-
-### 4.3 — Top-N Word Frequency
-Write a function `top_words(text, n)` that returns the `n` most frequent words in `text`.
-
-- Case-insensitive (`"The"` and `"the"` are the same word)
-- Ignore punctuation `. , ! ? ; :`
-- If two words have the same count, sort them alphabetically
-```
-text = "The cat and the hat. The cat sat!"
-top_words(text, 2)  ->  [("the", 3), ("cat", 2)]
-```
-#ANSWER: 
-
-def top_words(text,n): 
-    freq = {}
-    prohibited_chars = [".", ",", "!", "?", ";", ":"] 
-    text = text.lower()                                             #turning every character into lowercase so case sensitIvity is not a problem
-    cleaned_text = ""                                               #cleaned_text will hold the text without any punctuation marks 
-    for char in text: 
-        if char not in prohibited_chars:                            #checking to see if original text contains any punctuation 
-            cleaned_text += char     
-        else: 
-            continue 
-    new_text = cleaned_text.strip().split()                         #making sure the new formatted text does not have trailing spaces and every word seperated by a space is turned into a list
-
-    single_words = []                                               #single_words list will hold each unique word in the text only once
-    for word in new_text: 
-        if word not in single_words: 
-            single_words.append(word)
-    for word in single_words:                                       #looping through each unique word to assign it a value of it's frequency in a dictionary 
-        freq[word] = new_text.count(word)
-
-    items = list(freq.items())                                      #turning each key-value pair into a tuple and storing all the tuples in a list 
-    result = [] 
-    while len(items) > 0:                                           #this loop is used to sort through each tuple in the list 'items' and sort it by frequency one by one from highest to lowest  
-        highest = items[0]  
-        for item in items: 
-            if item[1] > highest [1]: 
-                highest = item 
-            elif item [1] == highest [1] and item[0] < highest[0]:  #making sure that we sort alphabetically aswell if frequency is same between 2 words 
-                highest = item 
-            else: 
-                continue 
-        result.append(highest)                                      
-        items.remove(highest)                                      #removing (word, frequency) tuple from list 'items' to sort through remaining tuples and decide which will be ranked higher from those
-
-    return result[:n]                                               #since the frequencies are sorted highest to lowest, we use slicing to get the exact number of words and the amount highest respective frequencies that the user wants from the string given 
-
-"""
-2 other uses cases: 
-
-text = "Apple, banana apple? orange banana! apple."
-print(top_words(text, 2))
-expected_output: [("apple", 3), ("banana", 2)]
-
-text = "dog cat bird dog cat bird"
-print(top_words(text, 3))
-expected_output: [("bird", 2), ("cat", 2), ("dog", 2)]
-
-"""
-
----
 
 
